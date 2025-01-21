@@ -78,7 +78,6 @@ export default function HomeTemplate({ posts }: HomeTemplateProps) {
                   sizes="100vw"
                 />
               </div>
-
               {/* Banner Mobile */}
               <div className="block md:hidden aspect-[2/4] relative w-full">
                 <Image
