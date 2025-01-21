@@ -13,18 +13,11 @@ import { SeoQuery } from "@/queries/general/SeoQuery";
 import { HomePostsQuery } from "@/queries/general/HomePostsQuery";
 import HomeTemplate from "@/components/Templates/Home/HomeTemplate";
 
-interface Props {
-  params: {
-    slug?: string[];
-  };
-  searchParams: Record<string, string | string[] | undefined>;
-}
-
-export async function generateMetadata(
-  props: Props
-): Promise<Metadata> {
-  const { params } = props;
-  
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug?: string[] };
+}): Promise<Metadata> {
   if (!params.slug) {
     return {
       title: 'Página Inicial',
@@ -61,9 +54,13 @@ export function generateStaticParams() {
   return [];
 }
 
-export default async function Page(props: Props) {
-  const { params } = props;
-  
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: { slug?: string[] };
+  searchParams: Record<string, string | string[] | undefined>;
+}) {
   if (!params.slug) {
     try {
       const { posts } = await fetchGraphQL<{ posts: { nodes: any[] } }>(
