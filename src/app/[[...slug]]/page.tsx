@@ -14,20 +14,19 @@ import { HomePostsQuery } from "@/queries/general/HomePostsQuery";
 import HomeTemplate from "@/components/Templates/Home/HomeTemplate";
 
 type Props = {
-  params: Promise<{ slug?: string[] }> | { slug?: string[] };
+  params: { slug?: string[] };
+  searchParams?: { [key: string]: string | string[] | undefined };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const resolvedParams = await params;
-
-  if (!resolvedParams.slug) {
+  if (!params.slug) {
     return {
       title: 'Página Inicial',
       description: 'Seu portal de notícias esportivas - Acompanhe as últimas notícias do mundo do esporte, futebol, basquete, vôlei e muito mais.',
     };
   }
 
-  const slug = nextSlugToWpSlug(resolvedParams.slug.join('/'));
+  const slug = nextSlugToWpSlug(params.slug.join('/'));
   const isPreview = slug.includes("preview");
 
   const { contentNode } = await fetchGraphQL<{ contentNode: ContentNode }>(
@@ -57,9 +56,7 @@ export function generateStaticParams() {
 }
 
 export default async function Page({ params }: Props) {
-  const resolvedParams = await params;
-
-  if (!resolvedParams.slug) {
+  if (!params.slug) {
     try {
       const { posts } = await fetchGraphQL<{ posts: { nodes: any[] } }>(
         print(HomePostsQuery),
@@ -80,7 +77,7 @@ export default async function Page({ params }: Props) {
     }
   }
 
-  const slug = nextSlugToWpSlug(resolvedParams.slug.join('/'));
+  const slug = nextSlugToWpSlug(params.slug.join('/'));
   const isPreview = slug.includes("preview");
   
   try {
