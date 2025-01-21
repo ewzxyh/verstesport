@@ -13,15 +13,23 @@ const notFoundPageWordPressId = 501;
 export async function generateMetadata(): Promise<Metadata> {
   const { contentNode } = await fetchGraphQL<{ contentNode: ContentNode }>(
     print(SeoQuery),
-    { slug: notFoundPageWordPressId, idType: "DATABASE_ID" },
+    {
+      slug: '404',
+      idType: 'URI',
+    },
   );
 
-  const metadata = setSeoData({ seo: contentNode.seo });
+  const metadata = contentNode?.seo 
+    ? setSeoData({ seo: contentNode.seo })
+    : {
+        title: '404 - Página não encontrada',
+        description: 'A página que você está procurando não foi encontrada.',
+      };
 
   return {
     ...metadata,
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/404-not-found/`,
+      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/404`,
     },
   } as Metadata;
 }
@@ -31,5 +39,14 @@ export default async function NotFound() {
     id: notFoundPageWordPressId,
   });
 
-  return <div dangerouslySetInnerHTML={{ __html: page.content || " " }} />;
+  if (!page) {
+    return (
+      <div className="container mx-auto px-4 py-16 text-center">
+        <h1 className="text-4xl font-bold mb-4">404</h1>
+        <p className="text-xl">Página não encontrada</p>
+      </div>
+    );
+  }
+
+  return <div dangerouslySetInnerHTML={{ __html: page.content || ""}} />;
 }
