@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { print } from "graphql/language/printer";
 
@@ -13,14 +13,18 @@ import { SeoQuery } from "@/queries/general/SeoQuery";
 import { HomePostsQuery } from "@/queries/general/HomePostsQuery";
 import HomeTemplate from "@/components/Templates/Home/HomeTemplate";
 
-type Props = {
+interface Props {
   params: {
     slug?: string[];
   };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
+  searchParams: Record<string, string | string[] | undefined>;
+}
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(
+  props: Props
+): Promise<Metadata> {
+  const { params } = props;
+  
   if (!params.slug) {
     return {
       title: 'Página Inicial',
@@ -57,7 +61,9 @@ export function generateStaticParams() {
   return [];
 }
 
-export default async function Page({ params }: Props) {
+export default async function Page(props: Props) {
+  const { params } = props;
+  
   if (!params.slug) {
     try {
       const { posts } = await fetchGraphQL<{ posts: { nodes: any[] } }>(
