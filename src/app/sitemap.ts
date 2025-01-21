@@ -1,9 +1,7 @@
 import { MetadataRoute } from "next";
 import { fetchGraphQL } from "@/utils/fetchGraphQL";
-import { print } from "graphql/language/printer";
-import { gql } from '@apollo/client';
 
-const SitemapQuery = gql`
+const SitemapQuery = `
   query SitemapQuery {
     posts(first: 1000) {
       nodes {
@@ -21,7 +19,7 @@ const SitemapQuery = gql`
 `;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const { posts, pages } = await fetchGraphQL(print(SitemapQuery));
+  const { posts, pages } = await fetchGraphQL(SitemapQuery);
 
   const postsEntries = posts.nodes.map((post: any) => ({
     url: `${process.env.NEXT_PUBLIC_BASE_URL}/${post.slug}`,

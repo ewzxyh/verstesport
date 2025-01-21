@@ -103,9 +103,9 @@ export default async function PostTemplate({ node }: TemplateProps) {
       <div className="relative overflow-hidden">
         <Squares
           speed={0.3}
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0 opacity-10 md:mt-6"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-background/90" />
+        <div className="md:mt-6 absolute inset-0 bg-gradient-to-b from-primary/10 to-background/90" />
 
         <div className="container relative mx-auto px-4 pt-20 pb-16">
           {/* Back Button */}

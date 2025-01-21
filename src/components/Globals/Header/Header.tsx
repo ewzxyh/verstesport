@@ -8,7 +8,7 @@ import { StoreIcon } from "lucide-react";
 
 export default function Header() {
   return (
-    <header className="bg-black z-50">
+    <header className="bg-black z-50 mb-6 md:mb-0">
       <div className="container mx-auto px-4 py-4 md:px-16 md:py-8">
         <div className="flex flex-col md:flex-row gap-4 md:gap-0 md:items-center">
           <div className="flex items-center justify-between">
