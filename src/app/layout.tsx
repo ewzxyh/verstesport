@@ -8,9 +8,7 @@ import "@/app/globals.css";
 import Header from "@/components/Globals/Header/Header";
 import Footer from "@/components/Globals/Footer/Footer";
 import { PreviewNotice } from "@/components/Globals/PreviewNotice/PreviewNotice";
-import { DotPattern } from "@/components/ui/dot-pattern";
 import { Squares } from "@/components/ui/squares-background";
-import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 

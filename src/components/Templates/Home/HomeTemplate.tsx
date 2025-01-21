@@ -4,7 +4,6 @@ import { formatDate } from "@/utils/formatDate";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Gravity, MatterBody } from "@/components/ui/gravity";
 import { HeroPill } from "@/components/ui/hero-pill";
-import { LineShadowText } from "@/components/ui/line-shadow-text";
 import { SiWhatsapp } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import { Squares } from "@/components/ui/squares-background";
