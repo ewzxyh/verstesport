@@ -88,7 +88,7 @@ export default function HomeTemplate({ posts }: HomeTemplateProps) {
                   sizes="100vw"
                 />
               </div>
-              <Gravity gravity={{ x: 0, y: 1 }} className="w-full h-full">
+              <Gravity gravity={{ x: 0, y: 1 }} className="w-full h-full hidden md:block">
                 <MatterBody
                   matterBodyOptions={{ friction: 0.5, restitution: 0.2 }}
                   x="30%"
