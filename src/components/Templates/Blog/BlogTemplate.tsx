@@ -24,7 +24,7 @@ export function BlogTemplate({ posts }: BlogTemplateProps) {
     return (
         <div className="relative">
             {/* Hero Section with Background */}
-            <div className="relative overflow-hidden">
+            <div className="relative overflow-hidden md:mt-6">
                 <Squares
                     speed={0.3}
                     className="absolute inset-0 opacity-10"

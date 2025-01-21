@@ -100,12 +100,12 @@ export default async function PostTemplate({ node }: TemplateProps) {
       />
       
       {/* Hero Section with Background */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden mt-6">
         <Squares
           speed={0.3}
-          className="absolute inset-0 opacity-10 md:mt-6"
+          className="absolute inset-0 opacity-10 mt-0"
         />
-        <div className="md:mt-6 absolute inset-0 bg-gradient-to-b from-primary/10 to-background/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-background/90 mt-0" />
 
         <div className="container relative mx-auto px-4 pt-20 pb-16">
           {/* Back Button */}
@@ -168,7 +168,7 @@ export default async function PostTemplate({ node }: TemplateProps) {
               className="text-primary hover:text-primary/90"
             >
               <Link href="/blog" className="inline-flex items-center">
-                Ver todas as notícias
+                Ver notícias
                 <svg
                   className="ml-2 h-4 w-4"
                   fill="none"
