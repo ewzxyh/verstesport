@@ -13,19 +13,21 @@ import { SeoQuery } from "@/queries/general/SeoQuery";
 import { HomePostsQuery } from "@/queries/general/HomePostsQuery";
 import HomeTemplate from "@/components/Templates/Home/HomeTemplate";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug?: string[] };
-}): Promise<Metadata> {
-  if (!params.slug) {
+// Optional: force dynamic if you wish
+// export const dynamic = "force-dynamic";
+
+export async function generateMetadata(props: any): Promise<Metadata> {
+  const { params } = props;
+
+  if (!params?.slug) {
     return {
-      title: 'Página Inicial',
-      description: 'Seu portal de notícias esportivas - Acompanhe as últimas notícias do mundo do esporte, futebol, basquete, vôlei e muito mais.',
+      title: "Página Inicial",
+      description:
+        "Seu portal de notícias esportivas - Acompanhe as últimas notícias do mundo do esporte, futebol, basquete, vôlei e muito mais.",
     };
   }
 
-  const slug = nextSlugToWpSlug(params.slug.join('/'));
+  const slug = nextSlugToWpSlug(params.slug.join("/"));
   const isPreview = slug.includes("preview");
 
   const { contentNode } = await fetchGraphQL<{ contentNode: ContentNode }>(
@@ -47,27 +49,21 @@ export async function generateMetadata({
     alternates: {
       canonical: `${process.env.NEXT_PUBLIC_BASE_URL}${slug}`,
     },
-  } as Metadata;
+  };
 }
 
 export function generateStaticParams() {
   return [];
 }
 
-export default async function Page({
-  params,
-  searchParams,
-}: {
-  params: { slug?: string[] };
-  searchParams: Record<string, string | string[] | undefined>;
-}) {
-  if (!params.slug) {
+export default async function Page(props: any) {
+  const { params } = props;
+
+  if (!params?.slug) {
     try {
       const { posts } = await fetchGraphQL<{ posts: { nodes: any[] } }>(
         print(HomePostsQuery),
-        {
-          first: 9,
-        }
+        { first: 9 },
       );
 
       if (!posts?.nodes) {
@@ -82,9 +78,9 @@ export default async function Page({
     }
   }
 
-  const slug = nextSlugToWpSlug(params.slug.join('/'));
+  const slug = nextSlugToWpSlug(params.slug.join("/"));
   const isPreview = slug.includes("preview");
-  
+
   try {
     const { contentNode } = await fetchGraphQL<{ contentNode: ContentNode }>(
       print(ContentInfoQuery),
@@ -94,7 +90,9 @@ export default async function Page({
       },
     );
 
-    if (!contentNode) return notFound();
+    if (!contentNode) {
+      return notFound();
+    }
 
     switch (contentNode.contentTypeName) {
       case "page":
